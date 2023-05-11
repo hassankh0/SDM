@@ -39,8 +39,7 @@ public class AccountReport implements Report{
         if (this.account.isDebit()) {
             this.content += "********* DEBIT *********\n"
                     + "Limit : " + this.account.getDebit().getLimit() + "\n"
-                    + "Balance : " + this.account.getDebit().getAmount() + "\n"
-                    + "**************** \n";
+                    + "Balance : " + this.account.getDebit().getAmount() + "\n";
         }
 
         if (this.account.isActiveLoan()) {
@@ -50,23 +49,22 @@ public class AccountReport implements Report{
                     + "Due Date : " + this.account.getLoan().getDueDate() + "\n"
                     + "Monthly Payment : " + this.account.getLoan().getMonthlyPayment() + "\n"
                     + "Interest Rate : " + this.account.getInterestRate() + "\n"
-                    + "Remaining Amount : " + this.account.getLoan().getRemainingAmount() + "\n"
-                    + "*************** \n";
+                    + "Remaining Amount : " + this.account.getLoan().getRemainingAmount() + "\n";
         }
 
-//        this.content = this.content + "***** TRANSACTIONS ***** \n";
-//
-//        for(Iterator var1 = this.account.getAccountTransactions().iterator(); var1.hasNext(); this.content = this.content + "************************ \n") {
-//            Transaction transaction = (Transaction)var1.next();
-//            var10001 = this.content;
-//            this.content = var10001 + "Type : " + transaction.getType() + "\n";
-//            var10001 = this.content;
-//            this.content = var10001 + "Amount : " + transaction.getAmount() + "\n";
-//            var10001 = this.content;
-//            this.content = var10001 + "Status : " + transaction.getStatus() + "\n";
-//        }
-//
-//        this.content = this.content + "************************* \n";
+        if (this.account.getTransactions().size()>0) {
+            this.content += "********* TRANSACTION ********* \n";
+            for (Transaction t :
+                    this.account.getTransactions()) {
+                this.content += "Transaction Id : " + t.getTransactionId() + "\n"
+                                + "Transaction Type : " + t.getTransactionType() + "\n"
+                                + "Amount : " + t.getAmount() + "\n"
+                                + "Date : " + t.getDate() + "\n"
+                                + "Status : " + (t.isStatus() ? "Success" : "Failed") + "\n";
+            }
+
+        }
+        this.content+= "********************************** \n";
     }
 
     public int getReportId() {

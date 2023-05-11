@@ -5,12 +5,14 @@ public class Transaction {
     private String transactionType;
     private Date date;
     private float amount;
+    private boolean status;
 
-    public Transaction( String transactionType, Date date, float amount) {
+    public Transaction( String transactionType, Date date, float amount,boolean status) {
         this.transactionId = (int)Math.floor(Math.random() * 900000.0 + 100000.0);
         this.transactionType = transactionType;
         this.date = date;
         this.amount = amount;
+        this.status = status;
     }
 
     public int getTransactionId() {
@@ -43,5 +45,13 @@ public class Transaction {
 
     public void setAmount(float amount) {
         this.amount = amount;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

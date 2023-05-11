@@ -12,8 +12,9 @@ public class Interest {
     }
 
     public float calculate(){
-        float monthlyRate = (float) (this.totalAmount * this.rate * this.months / 1200.0);
-        float monthlyPaymentWithoutInterest = this.totalAmount / (float)this.months;
-        return monthlyPaymentWithoutInterest + monthlyPaymentWithoutInterest * monthlyRate;
+        float monthlyInterestRate = this.rate / 12;
+        float power = (float) Math.pow(1 + monthlyInterestRate, this.months);
+        float monthlyPayment = this.totalAmount * ((monthlyInterestRate * power) / (power - 1));
+        return monthlyPayment;
     }
 }

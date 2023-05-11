@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Account {
     private int accountId;
@@ -10,6 +12,7 @@ public class Account {
     private Card card;
     private Debit debit;
     private Loan loan;
+    private List<Transaction>transactions;
 
 
     public Account() {
@@ -20,6 +23,7 @@ public class Account {
         this.card = new Card();
         this.debit = new Debit(1000);
         this.loan = new Loan(0,this.interestRate,new Date());
+        this.transactions = new ArrayList<Transaction>();
     }
 
     public int getAccountId() {
@@ -96,6 +100,7 @@ public class Account {
 
     public float deposit(float amount) {
         this.totalBalance += amount;
+        this.transactions.add(new Transaction("Deposit",new Date(),amount,true));
         return this.totalBalance;
     }
 
@@ -103,14 +108,17 @@ public class Account {
         if (amount > this.totalBalance) {
             if (this.isDebit){
                 this.totalBalance -= amount;
+                this.transactions.add(new Transaction("Withdraw",new Date(),amount,true));
                 return true;
             }
             else {
+                this.transactions.add(new Transaction("Withdraw",new Date(),amount,false));
                 return false;
             }
         }
         else {
             this.totalBalance -= amount;
+            this.transactions.add(new Transaction("Withdraw",new Date(),amount,true));
             return true;
         }
     }
@@ -118,18 +126,32 @@ public class Account {
     public boolean transfer(float amount,Account receipientAccount) {
         if(this.withdraw(amount)) {
             receipientAccount.deposit(amount);
+
+            this.transactions.add(new Transaction("Transfer",new Date(),amount,true));
             return true;
         }
+        this.transactions.add(new Transaction("Transfer",new Date(),amount,false));
         return false;
     }
 
-    public boolean makeLoan(float amount) {
-        if (this.activeLoan)
+    public boolean makeLoan(float amount, Date dueDate) {
+        if (this.activeLoan) {
+            this.transactions.add(new Transaction("Loan",new Date(),amount,false));
             return false;
+        }
 
-        //create loan
+        this.loan = new Loan(amount,this.interestRate, dueDate);
         this.activeLoan = true;
+        this.transactions.add(new Transaction("Loan",new Date(),amount,true));
         return true;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     @Override
@@ -146,4 +168,6 @@ public class Account {
                 ", loan=" + loan +
                 '}';
     }
+
+
 }

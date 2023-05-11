@@ -1,6 +1,12 @@
+import java.util.Date;
+
 public class Main {
     public static void main(String[] args) {
         Account account = new Account();
+
+        account.deposit(1000);
+//        account.makeLoan(500, new Date("Feb 28 2023"));
+        account.withdraw(300);
 
         AccountReport ac = new AccountReport(account);
 
