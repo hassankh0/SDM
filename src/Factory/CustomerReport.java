@@ -44,13 +44,13 @@ public class CustomerReport implements Report {
         this.content = "********* "
                 + this.type
                 + " *********\n"
-                + "Classes.Customer Id : " + this.customer.getCustomerId() + "\n"
-                + "Classes.Customer Name : " + this.customer.getName() + "\n"
-                + "Classes.Customer Email : " + this.customer.getEmail() + "\n"
-                + "Classes.Customer Phone Number : " + this.customer.getPhoneNumber() + "\n"
-                + "Classes.Account Id : " + this.customer.getAccount().getAccountId() + "\n"
-                + "Classes.Account Balance : " + this.customer.getAccount().getTotalBalance() + "\n"
-                + "Classes.Account Classes.Interest Rate : " + this.customer.getAccount().getInterestRate() + "\n"
+                + "Customer Id : " + this.customer.getCustomerId() + "\n"
+                + "Customer Name : " + this.customer.getName() + "\n"
+                + "Customer Email : " + this.customer.getEmail() + "\n"
+                + "Customer Phone Number : " + this.customer.getPhoneNumber() + "\n"
+                + "Account Id : " + this.customer.getAccount().getAccountId() + "\n"
+                + "Account Balance : " + this.customer.getAccount().getTotalBalance() + "\n"
+                + "Account Rate : " + this.customer.getAccount().getInterestRate() + "\n"
                 + "*********************";
     }
 }

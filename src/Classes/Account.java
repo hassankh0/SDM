@@ -100,13 +100,24 @@ public class Account {
         this.loan = loan;
     }
 
-    public float deposit(float amount) {
+    public boolean deposit(float amount) {
+        if (amount <= 0) {
+            System.out.println("Invalid deposit amount.");
+            return false;
+        }
+
         this.totalBalance += amount;
+        System.out.println("Deposit of " + amount + " to account " + accountId + " successful.");
         this.transactions.add(new Transaction("Deposit",new Date(),amount,true));
-        return this.totalBalance;
+        return true;
     }
 
     public boolean withdraw(float amount) {
+        if (amount <= 0) {
+            System.out.println("Invalid withdrawal amount.");
+            return false;
+        }
+
         if (amount > this.totalBalance) {
             if (this.isDebit){
                 this.totalBalance -= amount;
@@ -114,26 +125,18 @@ public class Account {
                 return true;
             }
             else {
+
+                System.out.println("Insufficient funds.");
                 this.transactions.add(new Transaction("Withdraw",new Date(),amount,false));
                 return false;
             }
         }
         else {
             this.totalBalance -= amount;
+            System.out.println("Withdrawal of " + amount + " from account " + accountId + " successful.");
             this.transactions.add(new Transaction("Withdraw",new Date(),amount,true));
             return true;
         }
-    }
-
-    public boolean transfer(float amount,Account receipientAccount) {
-        if(this.withdraw(amount)) {
-            receipientAccount.deposit(amount);
-
-            this.transactions.add(new Transaction("Transfer",new Date(),amount,true));
-            return true;
-        }
-        this.transactions.add(new Transaction("Transfer",new Date(),amount,false));
-        return false;
     }
 
     public boolean makeLoan(float amount, Date dueDate) {
@@ -152,13 +155,17 @@ public class Account {
         return transactions;
     }
 
+    public void addTransactions(Transaction transaction) {
+        this.transactions.add(transaction);
+    }
+
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
 
     @Override
     public String toString() {
-        return "Classes.Account{" +
+        return "Account{" +
                 "accountId=" + accountId +
                 ", totalBalance=" + totalBalance +
                 ", interestRate=" + interestRate +

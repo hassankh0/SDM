@@ -15,7 +15,7 @@ public class AccountReport implements Report {
     public AccountReport( Account account) {
         this.reportId = (int)Math.floor(Math.random() * 900000.0 + 100000.0);
         this.date = new Date();
-        this.type = "Classes.Account Factory.Report";
+        this.type = "Account";
         this.account = account;
 
         this.generateReport();
@@ -27,10 +27,10 @@ public class AccountReport implements Report {
         this.content = "********* "
                 + this.type
                 + " *********\n"
-                + "Classes.Account Id : " + this.account.getAccountId() + "\n"
+                + "Account Id : " + this.account.getAccountId() + "\n"
                 + "Balance : " + this.account.getTotalBalance() + "\n"
-                + "Classes.Debit : " + this.account.getDebit() + "\n"
-                + "Classes.Loan : " + this.account.isActiveLoan() + "\n";
+                + "Debit : " + this.account.getDebit() + "\n"
+                + "Loan : " + this.account.isActiveLoan() + "\n";
 
         if (this.account.getCard() != null) {
             this.content += "********* CARD *********\n"
@@ -48,11 +48,11 @@ public class AccountReport implements Report {
 
         if (this.account.isActiveLoan()) {
             this.content += "********* LOAN ********* \n"
-                    + "Classes.Loan Id : " + this.account.getLoan().getLoanId() + "\n"
+                    + "Loan Id : " + this.account.getLoan().getLoanId() + "\n"
                     + "Total Amount : " + this.account.getLoan().getAmount() + "\n"
                     + "Due Date : " + this.account.getLoan().getDueDate() + "\n"
                     + "Monthly Payment : " + this.account.getLoan().getMonthlyPayment() + "\n"
-                    + "Classes.Interest Rate : " + this.account.getInterestRate() + "\n"
+                    + "Interest Rate : " + this.account.getInterestRate() + "\n"
                     + "Remaining Amount : " + this.account.getLoan().getRemainingAmount() + "\n";
         }
 
@@ -60,8 +60,8 @@ public class AccountReport implements Report {
             this.content += "********* TRANSACTION ********* \n";
             for (Transaction t :
                     this.account.getTransactions()) {
-                this.content += "Classes.Transaction Id : " + t.getTransactionId() + "\n"
-                                + "Classes.Transaction Type : " + t.getTransactionType() + "\n"
+                this.content += "Transaction Id : " + t.getTransactionId() + "\n"
+                                + "Transaction Type : " + t.getTransactionType() + "\n"
                                 + "Amount : " + t.getAmount() + "\n"
                                 + "Date : " + t.getDate() + "\n"
                                 + "Status : " + (t.isStatus() ? "Success" : "Failed") + "\n";

@@ -38,25 +38,6 @@ public class Test {
     }
 
     @org.junit.jupiter.api.Test
-    public void testTransfer() {
-        Account account1 = new Account();
-        Account account2 = new Account();
-        float initialBalance = 1000;
-        account1.setTotalBalance(initialBalance);
-
-        // Transfer more than the current balance
-        assertFalse(account1.transfer(initialBalance + 1, account2));
-        assertEquals(initialBalance, account1.getTotalBalance());
-        assertEquals(0, account2.getTotalBalance());
-
-        // Transfer less than the current balance
-        float transferredAmount = 500;
-        assertTrue(account1.transfer(transferredAmount, account2));
-        assertEquals(initialBalance - transferredAmount, account1.getTotalBalance());
-        assertEquals(transferredAmount, account2.getTotalBalance());
-    }
-
-    @org.junit.jupiter.api.Test
     public void testMakeLoan() {
         Account account = new Account();
         assertFalse(account.isActiveLoan());

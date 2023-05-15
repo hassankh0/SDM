@@ -46,14 +46,14 @@ public class BankReport implements Report {
         this.content = "********* "
                 + this.type
                 + " *********\n"
-                + "Classes.Bank Id : " + this.bank.getBankId() + "\n"
-                + "Classes.Bank Name : " + this.bank.getName() + "\n"
+                + "Bank Id : " + this.bank.getBankId() + "\n"
+                + "Bank Name : " + this.bank.getName() + "\n"
                 + "Total Customers : " + this.bank.getCustomers().size() + "\n"
                 + "********* Customers *********\n";
 
         for(Iterator var1 = this.bank.getCustomers().iterator(); var1.hasNext(); this.content += "************************* \n") {
             Customer customer = (Customer) var1.next();
-            this.content += "Classes.Customer Id : " + customer.getCustomerId() + "\n"
+            this.content += "Customer Id : " + customer.getCustomerId() + "\n"
                     + "Name: " + customer.getName() + "\n"
                     + "Email : " + customer.getEmail() + "\n"
                     + "Phone Number : " + customer.getPhoneNumber() + "\n"
