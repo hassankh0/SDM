@@ -1,3 +1,5 @@
+package Classes;
+
 import java.util.Random;
 
 public class Customer {
@@ -64,7 +66,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "Classes.Customer{" +
                 "customerId=" + customerId +
                 ", name='" + name + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +

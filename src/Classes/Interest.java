@@ -1,3 +1,5 @@
+package Classes;
+
 public class Interest {
     private int interestId;
     private float totalAmount;

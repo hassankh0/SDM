@@ -1,3 +1,5 @@
+package Classes;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -136,13 +138,13 @@ public class Account {
 
     public boolean makeLoan(float amount, Date dueDate) {
         if (this.activeLoan) {
-            this.transactions.add(new Transaction("Loan",new Date(),amount,false));
+            this.transactions.add(new Transaction("Classes.Loan",new Date(),amount,false));
             return false;
         }
 
         this.loan = new Loan(amount,this.interestRate, dueDate);
         this.activeLoan = true;
-        this.transactions.add(new Transaction("Loan",new Date(),amount,true));
+        this.transactions.add(new Transaction("Classes.Loan",new Date(),amount,true));
         return true;
     }
 
@@ -156,7 +158,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
+        return "Classes.Account{" +
                 "accountId=" + accountId +
                 ", totalBalance=" + totalBalance +
                 ", interestRate=" + interestRate +

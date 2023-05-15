@@ -1,7 +1,11 @@
+package Factory;
+
+import Classes.*;
+
 import java.util.Date;
 import java.util.Iterator;
 
-public class AccountReport implements Report{
+public class AccountReport implements Report {
     private int reportId;
     private String type;
     private String content;
@@ -11,7 +15,7 @@ public class AccountReport implements Report{
     public AccountReport( Account account) {
         this.reportId = (int)Math.floor(Math.random() * 900000.0 + 100000.0);
         this.date = new Date();
-        this.type = "Account Report";
+        this.type = "Classes.Account Factory.Report";
         this.account = account;
 
         this.generateReport();
@@ -23,10 +27,10 @@ public class AccountReport implements Report{
         this.content = "********* "
                 + this.type
                 + " *********\n"
-                + "Account Id : " + this.account.getAccountId() + "\n"
+                + "Classes.Account Id : " + this.account.getAccountId() + "\n"
                 + "Balance : " + this.account.getTotalBalance() + "\n"
-                + "Debit : " + this.account.getDebit() + "\n"
-                + "Loan : " + this.account.isActiveLoan() + "\n";
+                + "Classes.Debit : " + this.account.getDebit() + "\n"
+                + "Classes.Loan : " + this.account.isActiveLoan() + "\n";
 
         if (this.account.getCard() != null) {
             this.content += "********* CARD *********\n"
@@ -44,11 +48,11 @@ public class AccountReport implements Report{
 
         if (this.account.isActiveLoan()) {
             this.content += "********* LOAN ********* \n"
-                    + "Loan Id : " + this.account.getLoan().getLoanId() + "\n"
+                    + "Classes.Loan Id : " + this.account.getLoan().getLoanId() + "\n"
                     + "Total Amount : " + this.account.getLoan().getAmount() + "\n"
                     + "Due Date : " + this.account.getLoan().getDueDate() + "\n"
                     + "Monthly Payment : " + this.account.getLoan().getMonthlyPayment() + "\n"
-                    + "Interest Rate : " + this.account.getInterestRate() + "\n"
+                    + "Classes.Interest Rate : " + this.account.getInterestRate() + "\n"
                     + "Remaining Amount : " + this.account.getLoan().getRemainingAmount() + "\n";
         }
 
@@ -56,8 +60,8 @@ public class AccountReport implements Report{
             this.content += "********* TRANSACTION ********* \n";
             for (Transaction t :
                     this.account.getTransactions()) {
-                this.content += "Transaction Id : " + t.getTransactionId() + "\n"
-                                + "Transaction Type : " + t.getTransactionType() + "\n"
+                this.content += "Classes.Transaction Id : " + t.getTransactionId() + "\n"
+                                + "Classes.Transaction Type : " + t.getTransactionType() + "\n"
                                 + "Amount : " + t.getAmount() + "\n"
                                 + "Date : " + t.getDate() + "\n"
                                 + "Status : " + (t.isStatus() ? "Success" : "Failed") + "\n";
@@ -67,44 +71,24 @@ public class AccountReport implements Report{
         this.content+= "********************************** \n";
     }
 
+    @Override
     public int getReportId() {
-        return reportId;
+        return this.reportId;
     }
 
-    public void setReportId(int reportId) {
-        this.reportId = reportId;
-    }
-
+    @Override
     public String getType() {
-        return type;
+        return this.type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
+    @Override
     public String getContent() {
-        return content;
+        return this.content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
+    @Override
+    public Date getReportDate() {
+        return this.date;
     }
 
     @Override

@@ -1,7 +1,10 @@
+package Factory;
+
 import java.util.Date;
 import java.util.Iterator;
+import Classes.*;
 
-public class BankReport implements Report{
+public class BankReport implements Report {
     private int reportId;
     private String type;
     private String content;
@@ -12,10 +15,30 @@ public class BankReport implements Report{
         this.reportId = (int)Math.floor(Math.random() * 900000.0 + 100000.0);
         this.content = "";
         this.date = new Date();
-        this.type = "Bank Report";
+        this.type = "Bank";
         this.bank = bank;
 
         this.generateReport();
+    }
+
+    @Override
+    public int getReportId() {
+        return this.reportId;
+    }
+
+    @Override
+    public String getType() {
+        return this.type;
+    }
+
+    @Override
+    public String getContent() {
+        return this.content;
+    }
+
+    @Override
+    public Date getReportDate() {
+        return this.date;
     }
 
     @Override
@@ -23,14 +46,14 @@ public class BankReport implements Report{
         this.content = "********* "
                 + this.type
                 + " *********\n"
-                + "Bank Id : " + this.bank.getBankId() + "\n"
-                + "Bank Name : " + this.bank.getName() + "\n"
+                + "Classes.Bank Id : " + this.bank.getBankId() + "\n"
+                + "Classes.Bank Name : " + this.bank.getName() + "\n"
                 + "Total Customers : " + this.bank.getCustomers().size() + "\n"
                 + "********* Customers *********\n";
 
         for(Iterator var1 = this.bank.getCustomers().iterator(); var1.hasNext(); this.content += "************************* \n") {
             Customer customer = (Customer) var1.next();
-            this.content += "Customer Id : " + customer.getCustomerId() + "\n"
+            this.content += "Classes.Customer Id : " + customer.getCustomerId() + "\n"
                     + "Name: " + customer.getName() + "\n"
                     + "Email : " + customer.getEmail() + "\n"
                     + "Phone Number : " + customer.getPhoneNumber() + "\n"

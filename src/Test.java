@@ -1,10 +1,15 @@
+import Classes.Account;
+import Classes.Bank;
+import Classes.Customer;
+import Classes.Interest;
+
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class Test {
 
-    // Account
+    // Classes.Account
 
     @org.junit.jupiter.api.Test
     public void testDeposit() {
@@ -61,28 +66,28 @@ public class Test {
         assertTrue(account.isActiveLoan());
     }
 
-    // Bank
+    // Classes.Bank
 
     @org.junit.jupiter.api.Test
     public void testAddCustomer() {
-        Bank bank = new Bank("My Bank");
+        Bank bank = new Bank("My Classes.Bank");
         Customer customer = bank.addCustomer("John Doe", "123-456-7890", "johndoe@email.com");
         assertEquals(1, bank.getCustomers().size());
         assertTrue(bank.getCustomers().contains(customer));
     }
 
-    // Customer
+    // Classes.Customer
 
     @org.junit.jupiter.api.Test
     public void testCreateAccount() {
         Customer customer = new Customer("John Smith", "123-456-7890", "john.smith@email.com");
         Account account = customer.createAccount(1000.0f);
 
-        assertNotNull(account); // Test that a new Account object is created
+        assertNotNull(account); // Test that a new Classes.Account object is created
         assertEquals(1000.0f, account.getTotalBalance(), 0.0f); // Test that the initial balance is set correctly
     }
 
-    // Interest
+    // Classes.Interest
 
     @org.junit.jupiter.api.Test
     public void testCalculate() {

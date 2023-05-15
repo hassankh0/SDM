@@ -1,3 +1,5 @@
+package Classes;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +46,7 @@ public class Bank {
 
     @Override
     public String toString() {
-        return "Bank{" +
+        return "Classes.Bank{" +
                 "bankId=" + bankId +
                 ", name='" + name + '\'' +
                 ", customers=" + customers +

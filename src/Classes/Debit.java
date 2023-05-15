@@ -1,3 +1,5 @@
+package Classes;
+
 public class Debit {
     private float amount;
     private float limit;
