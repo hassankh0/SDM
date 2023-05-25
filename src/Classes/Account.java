@@ -1,10 +1,13 @@
 package Classes;
 
+import Observer.TransactionStatusObserver;
+import Observer.TransactionStatusSubject;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Account {
+public class Account implements TransactionStatusSubject {
     private int accountId;
     private float totalBalance;
     private float interestRate;
@@ -15,6 +18,7 @@ public class Account {
     private Debit debit;
     private Loan loan;
     private List<Transaction>transactions;
+    private List<TransactionStatusObserver> observers;
 
 
     public Account() {
@@ -26,8 +30,22 @@ public class Account {
         this.debit = new Debit(1000);
         this.loan = new Loan(0,this.interestRate,new Date());
         this.transactions = new ArrayList<Transaction>();
+        this.observers = new ArrayList<>();
+
     }
 
+    @Override
+    public void registerObserver(TransactionStatusObserver observer) {
+        observers.add(observer);
+    }
+
+
+    @Override
+    public void notifyObservers(Transaction transaction) {
+        for (TransactionStatusObserver observer : observers) {
+            observer.update(transaction);
+        }
+    }
     public int getAccountId() {
         return accountId;
     }
@@ -107,8 +125,10 @@ public class Account {
         }
 
         this.totalBalance += amount;
-        System.out.println("Deposit of " + amount + " to account " + accountId + " successful.");
+//        System.out.println("Deposit of " + amount + " to account " + accountId + " successful.");
         this.transactions.add(new Transaction("Deposit",new Date(),amount,true));
+        notifyObservers(transactions.get(transactions.size() - 1)); // Notify observers of the new transaction
+
         return true;
     }
 
@@ -122,19 +142,25 @@ public class Account {
             if (this.isDebit){
                 this.totalBalance -= amount;
                 this.transactions.add(new Transaction("Withdraw",new Date(),amount,true));
+                notifyObservers(transactions.get(transactions.size() - 1)); // Notify observers of the new transaction
+
                 return true;
             }
             else {
 
-                System.out.println("Insufficient funds.");
+//                System.out.println("Insufficient funds.");
                 this.transactions.add(new Transaction("Withdraw",new Date(),amount,false));
+                notifyObservers(transactions.get(transactions.size() - 1)); // Notify observers of the new transaction
+
                 return false;
             }
         }
         else {
             this.totalBalance -= amount;
-            System.out.println("Withdrawal of " + amount + " from account " + accountId + " successful.");
+//            System.out.println("Withdrawal of " + amount + " from account " + accountId + " successful.");
             this.transactions.add(new Transaction("Withdraw",new Date(),amount,true));
+            notifyObservers(transactions.get(transactions.size() - 1)); // Notify observers of the new transaction
+
             return true;
         }
     }
@@ -148,6 +174,8 @@ public class Account {
         this.loan = new Loan(amount,this.interestRate, dueDate);
         this.activeLoan = true;
         this.transactions.add(new Transaction("Classes.Loan",new Date(),amount,true));
+        notifyObservers(transactions.get(transactions.size() - 1)); // Notify observers of the new transaction
+
         return true;
     }
 
