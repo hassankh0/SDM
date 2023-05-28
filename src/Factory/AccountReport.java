@@ -29,7 +29,8 @@ public class AccountReport implements Report {
                 + " *********\n"
                 + "Account Id : " + this.account.getAccountId() + "\n"
                 + "Balance : " + this.account.getTotalBalance() + "\n"
-                + "Debit : " + this.account.getDebit() + "\n"
+                + "Debit Limit : " + this.account.getDebit().getLimit() + "\n"
+                + "Debit Amount : " + this.account.getDebit().getAmount() + "\n"
                 + "Loan : " + this.account.isActiveLoan() + "\n";
 
         if (this.account.getCard() != null) {
@@ -64,7 +65,8 @@ public class AccountReport implements Report {
                                 + "Transaction Type : " + t.getTransactionType() + "\n"
                                 + "Amount : " + t.getAmount() + "\n"
                                 + "Date : " + t.getDate() + "\n"
-                                + "Status : " + (t.isStatus() ? "Success" : "Failed") + "\n";
+                                + "Status : " + (t.isStatus() ? "Success" : "Failed") + "\n"
+                                + "********" + "\n";
             }
 
         }

@@ -1,9 +1,15 @@
-package Bankfacade;
+package Facade;
 import Classes.Account;
 import Classes.Bank;
 import Classes.Customer;
+import Command.DepositCommand;
+import Command.LoanCommand;
+import Command.TransferCommand;
+import Command.WithdrawCommand;
 import Factory.ReportFactory;
 import Factory.Report;
+
+import java.util.Date;
 
 public class BankFacade {
     private Account account;
@@ -17,41 +23,40 @@ public class BankFacade {
     }
 
     public void deposit(float amount) {
-        account.deposit(amount);
+        DepositCommand depositCommand = new DepositCommand(this.account,amount);
+        depositCommand.execute();
     }
 
     public void withdraw(float amount) {
-        account.withdraw(amount);
+        WithdrawCommand withdrawCommand = new WithdrawCommand(this.account,amount);
+        withdrawCommand.execute();
     }
 
     public void transfer(float amount, Account destinationAccount) {
-        if (account.withdraw(amount)) {
-            destinationAccount.deposit(amount);
-            System.out.println("Transfer of " + amount + " from account " + account.getAccountId()
-                    + " to account " + destinationAccount.getAccountId() + " successful.");
-        } else {
-            System.out.println("Transfer failed due to insufficient funds.");
-        }
+        TransferCommand transferCommand = new TransferCommand(this.account,destinationAccount,amount);
+        transferCommand.execute();
     }
 
-    public boolean makeLoan(float amount, java.util.Date dueDate) {
-        return account.makeLoan(amount, dueDate);
+    public void makeLoan(float amount, Date dueDate) {
+        LoanCommand loanCommand = new LoanCommand(account,amount,dueDate);
+        loanCommand.execute();
+
     }
 
-    public String getAccountReport(Account account) {
+    public void getAccountReport(Account account) {
         Report accountReport = reportFactory.getReport("Account", account);
         if (accountReport != null) {
-            return accountReport.getContent();
+            System.out.println(accountReport.getContent());
         }
-        return null;
+        System.out.println("Account Report not Found");
     }
 
-    public String getBankReport(Bank bank) {
+    public void getBankReport(Bank bank) {
         Report bankReport = reportFactory.getReport("Bank", bank);
         if (bankReport != null) {
-            return bankReport.getContent();
+            System.out.println(bankReport.getContent());
         }
-        return null;
+        System.out.println("Bank Report not Found");
     }
 
     public Customer addCustomer(String name, String phoneNumber, String email) {

@@ -1,6 +1,9 @@
 package Command;
 
 import Classes.Account;
+import Classes.Transaction;
+
+import java.util.Date;
 
 public class DepositCommand implements BankCommand {
     private Account account;
@@ -13,8 +16,10 @@ public class DepositCommand implements BankCommand {
 
     @Override
     public void execute() {
-        account.deposit(amount);
-
+        boolean status = account.deposit(amount);
         System.out.println("Deposit of " + amount + " to account " + account.getAccountId() + " executed.");
+        Transaction transaction = new Transaction("Deposit",new Date(),amount,status);
+        account.addTransactions(transaction);
+
     }
 }

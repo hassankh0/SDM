@@ -1,6 +1,9 @@
 package Command;
 
 import Classes.Account;
+import Classes.Transaction;
+
+import java.util.Date;
 
 public class WithdrawCommand implements BankCommand {
     private Account account;
@@ -13,8 +16,11 @@ public class WithdrawCommand implements BankCommand {
 
     @Override
     public void execute() {
-        account.withdraw(amount);
+        boolean status = account.withdraw(amount);
 
         System.out.println("Withdrawal of " + amount + " from account " + account.getAccountId() + " executed.");
+
+        Transaction transaction = new Transaction("Withdraw",new Date(),amount,status);
+        account.addTransactions(transaction);
     }
 }

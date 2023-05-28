@@ -7,9 +7,11 @@ public class TransactionStatusMessageSender implements TransactionStatusObserver
         public void update(Transaction transaction) {
             String message;
             if (transaction.isStatus()) {
-                message = "Transaction successful: " + transaction.getTransactionType();
+                message = transaction.getTransactionType() + " transaction of " +transaction.getAmount()+" on "+
+                        transaction.getDate() + " has been processed successfully";
             } else {
-                message = "Transaction failed: " + transaction.getTransactionType();
+                message = transaction.getTransactionType() + " transaction of " +transaction.getAmount()+" on "+
+                        transaction.getDate() + " has failed. Please review the issue";
             }
 
             // Code to send the message using your preferred messaging system
@@ -18,7 +20,7 @@ public class TransactionStatusMessageSender implements TransactionStatusObserver
 
         private void sendMessage(String message) {
             // Code to send the message using your preferred messaging system
-            System.out.println("Sending message: " + message);
+            System.out.println("Transaction Alert: " + message);
         }
     }
 

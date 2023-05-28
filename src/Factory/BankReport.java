@@ -57,7 +57,7 @@ public class BankReport implements Report {
                     + "Name: " + customer.getName() + "\n"
                     + "Email : " + customer.getEmail() + "\n"
                     + "Phone Number : " + customer.getPhoneNumber() + "\n"
-                    + customer.getAccount() + "\n";
+                    + "Account : " + customer.getAccount().getAccountId() + "\n";
         }
     }
 

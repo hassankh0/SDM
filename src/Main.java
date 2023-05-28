@@ -1,6 +1,7 @@
-import Bankfacade.BankFacade;
+import Facade.BankFacade;
 import Classes.Account;
 import Classes.Bank;
+import Classes.Customer;
 import Factory.ReportFactory;
 import Observer.TransactionStatusMessageSender;
 import Observer.TransactionStatusObserver;
@@ -17,7 +18,7 @@ public class Main {
         Account account2 = new Account();
       
         TransactionStatusObserver messageSender2 = new TransactionStatusMessageSender();
-        account.registerObserver(messageSender2);
+        account2.registerObserver(messageSender2);
       
         Bank bank = new Bank("BNP");
         ReportFactory rf = new ReportFactory();
@@ -25,15 +26,17 @@ public class Main {
         
         bankFacade.deposit(1000);
         bankFacade.withdraw(300);
-        bankFacade.transfer(500, account2);
+        bankFacade.transfer(800, account2);
         
-        bankFacade.makeLoan(500, new Date("Feb 28 2023"));
+        bankFacade.makeLoan(500, new Date("DEC 28 2023"));
 
-        System.out.println(bankFacade.getAccountReport(account));
+        bankFacade.getAccountReport(account);
 
-        bankFacade.addCustomer("hassan", "0613172014", "hassan@gmail.com");
+        Customer customer = bankFacade.addCustomer("hassan", "0613172014", "hassan@gmail.com");
 
-        System.out.println(bankFacade.getBankReport(bank));
+        bankFacade.getBankReport(bank);
+
+//        System
 
     }
 }
