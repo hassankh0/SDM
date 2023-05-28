@@ -2,13 +2,23 @@ import Bankfacade.BankFacade;
 import Classes.Account;
 import Classes.Bank;
 import Factory.ReportFactory;
+import Observer.TransactionStatusMessageSender;
+import Observer.TransactionStatusObserver;
 
 import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
         Account account = new Account();
+      
+        TransactionStatusObserver messageSender = new TransactionStatusMessageSender();
+        account.registerObserver(messageSender);
+      
         Account account2 = new Account();
+      
+        TransactionStatusObserver messageSender2 = new TransactionStatusMessageSender();
+        account.registerObserver(messageSender2);
+      
         Bank bank = new Bank("BNP");
         ReportFactory rf = new ReportFactory();
         BankFacade bankFacade = new BankFacade(account, bank, rf);
@@ -24,5 +34,6 @@ public class Main {
         bankFacade.addCustomer("hassan", "0613172014", "hassan@gmail.com");
 
         System.out.println(bankFacade.getBankReport(bank));
+
     }
 }
