@@ -20,23 +20,8 @@ public class CustomerReport implements Report {
     }
 
     @Override
-    public int getReportId() {
-        return this.reportId;
-    }
-
-    @Override
-    public String getType() {
-        return this.type;
-    }
-
-    @Override
     public String getContent() {
         return this.content;
-    }
-
-    @Override
-    public Date getReportDate() {
-        return this.date;
     }
 
     @Override
@@ -50,7 +35,6 @@ public class CustomerReport implements Report {
                 + "Customer Phone Number : " + this.customer.getPhoneNumber() + "\n"
                 + "Account Id : " + this.customer.getAccount().getAccountId() + "\n"
                 + "Account Balance : " + this.customer.getAccount().getTotalBalance() + "\n"
-                + "Account Rate : " + this.customer.getAccount().getInterestRate() + "\n"
                 + "*********************";
     }
 }

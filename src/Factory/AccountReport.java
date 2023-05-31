@@ -1,9 +1,9 @@
 package Factory;
 
 import Classes.*;
+import State.Account;
 
 import java.util.Date;
-import java.util.Iterator;
 
 public class AccountReport implements Report {
     private int reportId;
@@ -29,6 +29,7 @@ public class AccountReport implements Report {
                 + " *********\n"
                 + "Account Id : " + this.account.getAccountId() + "\n"
                 + "Balance : " + this.account.getTotalBalance() + "\n"
+                + "Account state : " + this.account.getState().getType() + "\n"
                 + "Debit Limit : " + this.account.getDebit().getLimit() + "\n"
                 + "Debit Amount : " + this.account.getDebit().getAmount() + "\n"
                 + "Loan : " + this.account.isActiveLoan() + "\n";
@@ -53,7 +54,7 @@ public class AccountReport implements Report {
                     + "Total Amount : " + this.account.getLoan().getAmount() + "\n"
                     + "Due Date : " + this.account.getLoan().getDueDate() + "\n"
                     + "Monthly Payment : " + this.account.getLoan().getMonthlyPayment() + "\n"
-                    + "Interest Rate : " + this.account.getInterestRate() + "\n"
+                    + "Interest Rate : " + this.account.getState().getInterestRate() + "\n"
                     + "Remaining Amount : " + this.account.getLoan().getRemainingAmount() + "\n";
         }
 
@@ -74,23 +75,8 @@ public class AccountReport implements Report {
     }
 
     @Override
-    public int getReportId() {
-        return this.reportId;
-    }
-
-    @Override
-    public String getType() {
-        return this.type;
-    }
-
-    @Override
     public String getContent() {
         return this.content;
-    }
-
-    @Override
-    public Date getReportDate() {
-        return this.date;
     }
 
     @Override

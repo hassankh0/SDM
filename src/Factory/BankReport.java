@@ -3,6 +3,7 @@ package Factory;
 import java.util.Date;
 import java.util.Iterator;
 import Classes.*;
+import Singelton.Bank;
 
 public class BankReport implements Report {
     private int reportId;
@@ -22,23 +23,8 @@ public class BankReport implements Report {
     }
 
     @Override
-    public int getReportId() {
-        return this.reportId;
-    }
-
-    @Override
-    public String getType() {
-        return this.type;
-    }
-
-    @Override
     public String getContent() {
         return this.content;
-    }
-
-    @Override
-    public Date getReportDate() {
-        return this.date;
     }
 
     @Override

@@ -1,11 +1,8 @@
 package Facade;
-import Classes.Account;
-import Classes.Bank;
+import State.Account;
+import Command.*;
+import Singelton.Bank;
 import Classes.Customer;
-import Command.DepositCommand;
-import Command.LoanCommand;
-import Command.TransferCommand;
-import Command.WithdrawCommand;
 import Factory.ReportFactory;
 import Factory.Report;
 
@@ -23,40 +20,42 @@ public class BankFacade {
     }
 
     public void deposit(float amount) {
-        DepositCommand depositCommand = new DepositCommand(this.account,amount);
-        depositCommand.execute();
+        Command command = new DepositCommand(this.account,amount);
+        this.account.doCommand(command);
     }
 
     public void withdraw(float amount) {
-        WithdrawCommand withdrawCommand = new WithdrawCommand(this.account,amount);
-        withdrawCommand.execute();
+        Command command = new WithdrawCommand(this.account,amount);
+        this.account.doCommand(command);
     }
 
     public void transfer(float amount, Account destinationAccount) {
-        TransferCommand transferCommand = new TransferCommand(this.account,destinationAccount,amount);
-        transferCommand.execute();
+        Command command = new TransferCommand(this.account,destinationAccount,amount);
+        this.account.doCommand(command);
     }
 
     public void makeLoan(float amount, Date dueDate) {
-        LoanCommand loanCommand = new LoanCommand(account,amount,dueDate);
-        loanCommand.execute();
+        Command command = new LoanCommand(account,amount,dueDate);
+        this.account.doCommand(command);
 
     }
 
     public void getAccountReport(Account account) {
-        Report accountReport = reportFactory.getReport("Account", account);
+        Report accountReport = reportFactory.getReport(account);
         if (accountReport != null) {
             System.out.println(accountReport.getContent());
+        } else {
+            System.out.println("Account Report not Found");
         }
-        System.out.println("Account Report not Found");
     }
 
     public void getBankReport(Bank bank) {
-        Report bankReport = reportFactory.getReport("Bank", bank);
+        Report bankReport = reportFactory.getReport(bank);
         if (bankReport != null) {
             System.out.println(bankReport.getContent());
+        } else {
+            System.out.println("Bank Report not Found");
         }
-        System.out.println("Bank Report not Found");
     }
 
     public Customer addCustomer(String name, String phoneNumber, String email) {

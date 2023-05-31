@@ -1,5 +1,7 @@
 package Classes;
 
+import State.Account;
+
 import java.util.Random;
 
 public class Customer {

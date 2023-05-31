@@ -1,7 +1,13 @@
-package Classes;
+package State;
 
+import Classes.Card;
+import Classes.Debit;
+import Classes.Loan;
+import Classes.Transaction;
+import Command.Command;
 import Observer.TransactionStatusObserver;
 import Observer.TransactionStatusSubject;
+import State.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,7 +16,7 @@ import java.util.List;
 public class Account implements TransactionStatusSubject {
     private int accountId;
     private float totalBalance;
-    private float interestRate =  0.1F;
+    private AccountState state = null;
     private boolean activeLoan;
     private Date dateOpening;
     private boolean isDebit;
@@ -28,9 +34,10 @@ public class Account implements TransactionStatusSubject {
         this.dateOpening = new Date();
         this.card = new Card();
         this.debit = new Debit(1000);
-        this.loan = new Loan(0,this.interestRate,new Date());
         this.transactions = new ArrayList<Transaction>();
         this.observers = new ArrayList<>();
+
+        this.state = new RegularAccount();
 
     }
 
@@ -46,6 +53,11 @@ public class Account implements TransactionStatusSubject {
             observer.update(transaction);
         }
     }
+
+    public void doCommand(Command cmd) {
+        cmd.execute();
+    }
+
     public int getAccountId() {
         return accountId;
     }
@@ -60,14 +72,6 @@ public class Account implements TransactionStatusSubject {
 
     public void setTotalBalance(float totalBalance) {
         this.totalBalance = totalBalance;
-    }
-
-    public float getInterestRate() {
-        return interestRate;
-    }
-
-    public void setInterestRate(float interestRate) {
-        this.interestRate = interestRate;
     }
 
     public boolean isActiveLoan() {
@@ -118,6 +122,14 @@ public class Account implements TransactionStatusSubject {
         this.loan = loan;
     }
 
+    public AccountState getState() {
+        return state;
+    }
+
+    public void setState(AccountState state) {
+        this.state = state;
+    }
+
     public boolean deposit(float amount) {
         if (amount <= 0) {
 //            System.out.println("Invalid deposit amount.");
@@ -156,10 +168,14 @@ public class Account implements TransactionStatusSubject {
             return false;
         }
 
-        this.loan = new Loan(amount,this.interestRate, dueDate);
+        this.loan = new Loan(amount,this.state.getInterestRate(), dueDate);
         this.activeLoan = true;
         this.totalBalance += amount;
         return true;
+    }
+
+    public void makePremiumAccount(){
+        this.state = new PremiumAccount();
     }
 
     public List<Transaction> getTransactions() {
@@ -180,7 +196,6 @@ public class Account implements TransactionStatusSubject {
         return "Account{" +
                 "accountId=" + accountId +
                 ", totalBalance=" + totalBalance +
-                ", interestRate=" + interestRate +
                 ", activeLoan=" + activeLoan +
                 ", dateOpening=" + dateOpening +
                 ", isDebit=" + isDebit +

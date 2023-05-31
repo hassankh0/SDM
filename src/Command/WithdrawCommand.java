@@ -1,11 +1,11 @@
 package Command;
 
-import Classes.Account;
+import State.Account;
 import Classes.Transaction;
 
 import java.util.Date;
 
-public class WithdrawCommand implements BankCommand {
+public class WithdrawCommand implements Command {
     private Account account;
     private float amount;
 

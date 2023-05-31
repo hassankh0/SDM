@@ -1,35 +1,24 @@
 package Factory;
 
-import Classes.Bank;
+import Singelton.Bank;
 import Classes.Customer;
-import Classes.Account;
+import State.Account;
 
 public class ReportFactory {
 
-    public Report getReport(String reportType, Bank bank) {
+    public Report getReport(Bank bank) {
 
-        if (reportType.equalsIgnoreCase("Bank")) {
-            return new BankReport(bank);
-        }
-
-        return null;
+        return bank == null ? null : new BankReport(bank);
     }
 
-    public Report getReport(String reportType, Customer customer) {
+    public Report getReport(Customer customer) {
 
-        if (reportType.equalsIgnoreCase("Customer")) {
-            return new CustomerReport(customer);
-        }
-
-        return null;
+        return customer == null ? null : new CustomerReport(customer);
     }
 
-    public Report getReport(String reportType, Account account) {
-        if (reportType.equalsIgnoreCase("Account")) {
-            return new AccountReport(account);
+    public Report getReport(Account account) {
 
-        }
-        return null;
+        return account == null ? null : new AccountReport(account);
     }
 
 }

@@ -1,5 +1,5 @@
 package Command;
 
-public interface BankCommand {
+public interface Command {
     void execute();
 }

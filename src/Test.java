@@ -1,5 +1,5 @@
-import Classes.Account;
-import Classes.Bank;
+import State.Account;
+import Singelton.Bank;
 import Classes.Customer;
 import Classes.Interest;
 
@@ -51,7 +51,7 @@ public class Test {
 
     @org.junit.jupiter.api.Test
     public void testAddCustomer() {
-        Bank bank = new Bank("My Classes.Bank");
+        Bank bank = Bank.getInstance("Bank");
         Customer customer = bank.addCustomer("John Doe", "123-456-7890", "johndoe@email.com");
         assertEquals(1, bank.getCustomers().size());
         assertTrue(bank.getCustomers().contains(customer));
